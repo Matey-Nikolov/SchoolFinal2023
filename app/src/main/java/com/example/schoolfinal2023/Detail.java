@@ -47,8 +47,8 @@ public class Detail extends AppCompatActivity {
         ImageView leftIcon = findViewById(R.id.left_icon);
         ImageView rightIcon = findViewById(R.id.right_icon);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         leftIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +83,9 @@ public class Detail extends AppCompatActivity {
                 numberInput = findViewById(R.id.numberInput);
                 numberString = numberInput.getText().toString();
 
-                apiData(numberString);
+                if (!numberString.isEmpty()){
+                    apiData(numberString);
+                }
             }
         });
     }
