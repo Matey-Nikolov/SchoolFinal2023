@@ -92,7 +92,7 @@ public class Detail extends AppCompatActivity {
 
     private void apiData(String numberId){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://reqres.in")
+                .baseUrl("https://reqres.in") //
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -125,6 +125,7 @@ public class Detail extends AppCompatActivity {
                     openSettings();
                 } else if (item.getItemId() == R.id.two){
                     Toast.makeText(Detail.this, "You clicked item two", Toast.LENGTH_SHORT).show();
+                    openProduct();
                 }else if (item.getItemId() == R.id.three){
                     Toast.makeText(Detail.this, "You clicked item three", Toast.LENGTH_SHORT).show();
                 }
@@ -139,6 +140,11 @@ public class Detail extends AppCompatActivity {
     protected void returnLogin(){
         Intent intent = new Intent(this, MainActivity.class);
 //        intent.putExtra("username", usernameString);
+        startActivity(intent);
+    }
+
+    protected void openProduct(){
+        Intent intent = new Intent(this, Product.class);
         startActivity(intent);
     }
 
