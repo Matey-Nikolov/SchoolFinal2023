@@ -29,7 +29,6 @@
             tools:layout_editor_absoluteY="129dp">
 
             <TextView
-                android:id="@+id/barcode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Enter barcode" />
@@ -50,12 +49,22 @@
 
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product name" />
+
+            <TextView
                 android:id="@+id/productName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Product name"
                 android:textSize="24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description" />
 
             <TextView
                 android:id="@+id/description"

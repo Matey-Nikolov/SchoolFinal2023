@@ -2,20 +2,14 @@ package com.example.schoolfinal2023;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.io.Console;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -123,7 +117,7 @@ public class Detail extends AppCompatActivity {
                 if(item.getItemId() == R.id.one){
                     Toast.makeText(Detail.this, "You clicked item one", Toast.LENGTH_SHORT).show();
                     openSettings();
-                } else if (item.getItemId() == R.id.two){
+                } else if (item.getItemId() == R.id.barCodeReader){
                     Toast.makeText(Detail.this, "You clicked item two", Toast.LENGTH_SHORT).show();
                     openProduct();
                 }else if (item.getItemId() == R.id.three){
