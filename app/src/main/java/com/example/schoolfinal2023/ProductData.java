@@ -1,28 +1,13 @@
 package com.example.schoolfinal2023;
 
 public class ProductData {
+    public String code;
+    public String product_name;
+    public String ingredients_description;
 
-    DataClass data;
-
-    class DataClass {
-        String categories;
-        String id;
-
-
-        public String getCategories() {
-            return categories;
-        }
-
-        public void setCategories(String categories) {
-            this.categories = categories;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
+    public ProductData(String code, String product_name, String ingredients_description) {
+        this.code = code;
+        this.product_name = product_name;
+        this.ingredients_description = ingredients_description;
     }
 }
