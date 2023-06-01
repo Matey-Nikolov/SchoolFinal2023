@@ -10,6 +10,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +32,11 @@ public class Detail extends AppCompatActivity {
         Call<UserData> getUser(@Path("uid") String uid);
     }
 
+    private RecyclerView recyclerView;
+    private List<ProductItem> productList;
+    private ProductAdapter productAdapter;
+
+    private SwipeRefreshLayout swipeRefresh;
     TextView FullNameAPI;
     TextView emailAPI;
 
@@ -37,19 +48,8 @@ public class Detail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        // Set toolbar
-        ImageView leftIcon = findViewById(R.id.left_icon);
+//--------------------------Set toolbar-------------------------------------------------------------
         ImageView rightIcon = findViewById(R.id.right_icon);
-
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
-        leftIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                returnLogin();
-            }
-        });
 
         rightIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,14 +57,31 @@ public class Detail extends AppCompatActivity {
                 showMenu(view);
             }
         });
+//--------------------------------------------------------------------------------------------------
 
-        // Set current information
+//-------------------------Set current information--------------------------------------------------
         TextView userName = findViewById(R.id.textView1);
 
         String text = getIntent().getStringExtra("username");
         userName.setText(text);
+//--------------------------------------------------------------------------------------------------
 
-        //Set API data - https://reqres.in/
+//-------------------------Set recyclerView---------------------------------------------------------
+        recyclerView();
+//--------------------------------------------------------------------------------------------------
+
+//-------------------------Set swipeRefresh---------------------------------------------------------
+        swipeRefresh = findViewById(R.id.swipe_refresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshItems();
+            }
+        });
+//--------------------------------------------------------------------------------------------------
+
+
+//-------------------------Set API data - https://reqres.in/----------------------------------------
         FullNameAPI = findViewById(R.id.FullName);
         emailAPI = findViewById(R.id.email);
 
@@ -82,6 +99,29 @@ public class Detail extends AppCompatActivity {
                 }
             }
         });
+//--------------------------------------------------------------------------------------------------
+    }
+
+    private void refreshItems(){
+        productList.add(new ProductItem("https://images.openfoodfacts.org/images/products/544/900/021/4911/front_en.119.400.jpg", "Coca-cola - 330 mL", "5449000214911"));
+        productList.add(new ProductItem("https://images.openfoodfacts.org/images/products/871/570/001/7006/front_en.163.400.jpg", "Tomato Ketchup - Heinz - 500ml", "8715700017006"));
+        productList.add(new ProductItem("https://images.openfoodfacts.org/images/products/339/246/048/0827/front_en.72.400.jpg", "Biscottes heudebert", "3392460480827"));
+
+        Toast.makeText(Detail.this, "Refresh items", Toast.LENGTH_SHORT).show();
+        swipeRefresh.setRefreshing(false);
+    }
+
+    private void  recyclerView(){
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        productList = new ArrayList<>();
+        productList.add(new ProductItem("https://varna.parkmart.bg/wp-content/uploads/2021/02/0000001765.jpg", "Банкя", "3800202530056"));
+        productList.add(new ProductItem("https://th.bing.com/th/id/OIP.vuavZx37OQ-ZmvE6nbfxpgHaLH?w=204&h=306&c=7&r=0&o=5&pid=1.7", "Thai peanut noodle", "737628064502"));
+        productList.add(new ProductItem("https://images.openfoodfacts.org/images/products/505/399/015/6009/front_fr.179.400.jpg", "Pringles Original", "5053990156009"));
+
+        productAdapter = new ProductAdapter(productList, this);
+        recyclerView.setAdapter(productAdapter);
     }
 
     private void apiData(String numberId){
@@ -114,14 +154,12 @@ public class Detail extends AppCompatActivity {
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId() == R.id.one){
-                    Toast.makeText(Detail.this, "You clicked item one", Toast.LENGTH_SHORT).show();
+                if(item.getItemId() == R.id.settings){
+                    Toast.makeText(Detail.this, "You clicked settings", Toast.LENGTH_SHORT).show();
                     openSettings();
                 } else if (item.getItemId() == R.id.barCodeReader){
-                    Toast.makeText(Detail.this, "You clicked item two", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Detail.this, "You clicked product code", Toast.LENGTH_SHORT).show();
                     openProduct();
-                }else if (item.getItemId() == R.id.three){
-                    Toast.makeText(Detail.this, "You clicked item three", Toast.LENGTH_SHORT).show();
                 }
 
                 return true;
@@ -131,14 +169,8 @@ public class Detail extends AppCompatActivity {
         popupMenu.show();
     }
 
-    protected void returnLogin(){
-        Intent intent = new Intent(this, MainActivity.class);
-//        intent.putExtra("username", usernameString);
-        startActivity(intent);
-    }
-
     protected void openProduct(){
-        Intent intent = new Intent(this, Product.class);
+        Intent intent = new Intent(this, ProductDatabase.class);
         startActivity(intent);
     }
 

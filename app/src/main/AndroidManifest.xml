@@ -29,7 +29,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".Product"
+            android:name=".ProductDatabase"
             android:exported="false" />
 
         <activity

@@ -2,13 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/one"
+        android:id="@+id/settings"
         android:title="Settings"/>
     <item
         android:id="@+id/barCodeReader"
-        android:title="product code"/>
-    <item
-        android:id="@+id/three"
-        android:title="Three"/>
-
+        android:title="Product code"/>
 </menu>
