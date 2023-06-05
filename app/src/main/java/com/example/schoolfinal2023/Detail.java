@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ public class Detail extends AppCompatActivity {
     }
 
     private RecyclerView recyclerView;
-    private List<ProductItem> productList;
+    private List<ProductItem> productList = new ArrayList<>();;
     private ProductAdapter productAdapter;
 
     private SwipeRefreshLayout swipeRefresh;
@@ -80,7 +81,6 @@ public class Detail extends AppCompatActivity {
         });
 //--------------------------------------------------------------------------------------------------
 
-
 //-------------------------Set API data - https://reqres.in/----------------------------------------
         FullNameAPI = findViewById(R.id.FullName);
         emailAPI = findViewById(R.id.email);
@@ -108,6 +108,9 @@ public class Detail extends AppCompatActivity {
         productList.add(new ProductItem("https://images.openfoodfacts.org/images/products/339/246/048/0827/front_en.72.400.jpg", "Biscottes heudebert", "3392460480827"));
 
         Toast.makeText(Detail.this, "Refresh items", Toast.LENGTH_SHORT).show();
+
+        recyclerView.setAdapter(productAdapter);
+
         swipeRefresh.setRefreshing(false);
     }
 
@@ -115,7 +118,6 @@ public class Detail extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        productList = new ArrayList<>();
         productList.add(new ProductItem("https://varna.parkmart.bg/wp-content/uploads/2021/02/0000001765.jpg", "Банкя", "3800202530056"));
         productList.add(new ProductItem("https://th.bing.com/th/id/OIP.vuavZx37OQ-ZmvE6nbfxpgHaLH?w=204&h=306&c=7&r=0&o=5&pid=1.7", "Thai peanut noodle", "737628064502"));
         productList.add(new ProductItem("https://images.openfoodfacts.org/images/products/505/399/015/6009/front_fr.179.400.jpg", "Pringles Original", "5053990156009"));
@@ -176,7 +178,6 @@ public class Detail extends AppCompatActivity {
 
     protected void openSettings(){
         Intent intent = new Intent(this, Setting.class);
-        //intent.putExtra("username", usernameString);
         startActivity(intent);
     }
 }
