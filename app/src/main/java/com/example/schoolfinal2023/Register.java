@@ -45,6 +45,5 @@ public class Register extends AppCompatActivity {
         intent.putExtra("password", passwordString);
 
         startActivity(intent);
-
     }
 }
